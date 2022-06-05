@@ -1,4 +1,4 @@
-# PDBarrows
+# PointPAE
 
 Use this notebook to map Alphafold's predicted aligned error (PAE) of a single residue onto the model. It generates a Chimera attribute file for each chain that represents the PAE values (y-axis) of the residue.
 
