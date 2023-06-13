@@ -17,6 +17,8 @@ chainletter = "D" #Chain of interest. Open the PDB in chimera to verify the lett
 
 residuenum = 29 #Residue of interest on that chain
 
+sample = "y" #Choose "x" or "y" to sample along that axis. Choose "average" to average both axes.
+
 chimerax = True #True for a ChimeraX-compatible attribute file, False for Chimera
 
 ####################################################################
@@ -63,7 +65,23 @@ chainnum = chain_names.index(chainletter)
 for c in range(chainnum):
     residuenum_stitch = residuenum_stitch + lengths[c]
 
-pae_atresidue = pae[residuenum_stitch]
+#print(pae)
+#print(len(pae))
+
+
+
+if sample == "y":
+    pae_atresidue=[]
+    for p in pae:
+        pae_atresidue.append(p[residuenum_stitch])
+elif sample == "x":
+    pae_atresidue = pae[residuenum_stitch]
+elif sample == "average":
+    pae_atresidue_x=[]
+    for p in pae:
+        pae_atresidue_x.append(p[residuenum_stitch])
+    pae_atresidue_y = pae[residuenum_stitch]
+    pae_atresidue = [(x + y) / 2 for x, y in zip(pae_atresidue_x, pae_atresidue_y)]
 
 ##################################
 
@@ -73,7 +91,7 @@ outputnames = []
 attributenames = []
 
 if chimerax:
-    extension="_cx.txt"
+    extension="_cx.defattr"
 else:
     extension=".txt"
 
@@ -123,10 +141,12 @@ else:
     script.write("open " + pdbfile + "\n") #Adding quotations to filename didn't work in Chimera for some reason
 
 for outputname,attributename in zip(outputnames,attributenames):
-    script.write("defattr " + outputname + "\n")
+    
     if chimerax:
+        script.write("open " + outputname + "\n")
         script.write("color byattribute " + attributename + " range 0.75,35 palette cyanmaroon\n")
     else:
+        script.write("defattr " + outputname + "\n")
         script.write("rangecol " + attributename + " 0.75 blue 17.875 white 35 red\n")
     
 script.close()
