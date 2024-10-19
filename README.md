@@ -6,7 +6,7 @@ Edit the variables in the script and run it with `python PointPAE.py`. Make sure
 
 Example from Chaaban & Carter, 2022
 
-![PointPAE example](https://github.com/sami-chaaban/PointPAE/blob/main/examples/PointPAE-example.png?raw=true "PointPAE example")
+![PointPAE example](https://github.com/sami-chaaban/PointPAE/blob/main/PointPAE-example.png?raw=true "PointPAE example")
 
 
 ## License
